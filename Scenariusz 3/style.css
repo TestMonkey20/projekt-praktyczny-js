@@ -70,3 +70,27 @@ td {
 td > button:nth-child(1) {
   margin-right: 5px;
 }
+
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000a;
+  justify-items: center;
+  align-items: center;
+  display: none;
+}
+
+.modal {
+  background-color: #333;
+  padding: 20px;
+  display: grid;
+  gap: 10px;
+  grid-auto-flow: row;
+}
+
+.modal-visible {
+  display: grid;
+}
