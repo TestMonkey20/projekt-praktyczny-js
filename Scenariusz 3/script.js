@@ -1,13 +1,20 @@
 class Product {
-    constructor(name, category, value, quantity, description) {
-        this.name = name;
-        this.category = category;
-        this.value = value;
-        this.quantity = quantity;
-        this.description = description;
-    }
+  constructor(name, category, value, quantity, description) {
+    this.name = name;
+    this.category = category;
+    this.value = value;
+    this.quantity = quantity;
+    this.description = description;
+  }
 }
 
+const setLocalStorageArray = (productArray) => {
+  localStorage.setItem('products', JSON.stringify(productArray) )
+}
+
+const getLocalStorageArray = () => {
+  return JSON.parse(localStorage.getItem('products'))
+}
 
 /**
  * Dodaje produkt do tablicy
@@ -22,7 +29,7 @@ const pushProduct = (product) => {
 
   let productArray = JSON.parse(klucz)
   productArray.push(product)
-  localStorage.setItem('products', JSON.stringify(productArray))
+  setLocalStorageArray(productArray)
 }
 
 
@@ -34,20 +41,34 @@ const deleteProduct = (index) => {
     const klucz = localStorage.getItem('products')
 
   if(klucz === null) {
-    return
+    return 
   }
 
   let productArray = JSON.parse(klucz)
   productArray.splice(index, 1)
-  localStorage.setItem('products', JSON.stringify(productArray))
+  setLocalStorageArray(productArray)
 }
 
-const displayProduct = () => {
-  document.getElementById('iname')
-  document.getElementById('icategory')
-  document.getElementById('ivalue')
-  document.getElementById('iquantity')
-  document.getElementById('ides')
+const handleDelete = (i) => {
+  deleteProduct(i)
+  updateProducts()
+}
+
+const updateProducts = () => {
+  const tableBodyHandler = document.getElementById('table-body')
+
+  const productArray = getLocalStorageArray()
+  let td = ""
+  for(let i = 0; i<productArray.length; i++){
+    td += `<tr><td>${productArray[i].name}</td>
+    <td>${productArray[i].category}</td>
+    <td>${productArray[i].value}</td>
+    <td>${productArray[i].quantity}</td>
+    <td>${productArray[i].description}</td>
+    <td><button onclick="handleDelete(${i})">Delete</button><button>Edit</button><td>
+    </tr>`  
+  }
+  tableBodyHandler.innerHTML = td
 }
 
 
@@ -59,10 +80,12 @@ addbtn.addEventListener('click', () => {
   const category = document.getElementById('category').value
   const value = document.getElementById('value').value
   const quantity = document.getElementById('quantity').value
-  const des = document.getElementById('des').value
+  const des = document.getElementById('description').value
   const product = new Product(name, category, value, quantity, des)
 
-
   pushProduct(product)
+
+  updateProducts()
 })
 
+updateProducts()

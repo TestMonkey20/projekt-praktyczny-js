@@ -52,23 +52,21 @@ body {
   color: #eee;
 }
 
-.base {
+table {
   width: 100%;
-  height: 100vh;
-  background-color: bisque;
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
+  color: #eee;
 }
 
-li {
-  list-style-type: none;
+th {
+  font-size: 1.5rem;
 }
 
-.siatka {
-  display: flex;
-  justify-content: center;
-  background-color: cornsilk;
-  width: 100px;
-  height: 5vh;
+td {
+  padding: 5px 0;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+td > button:nth-child(1) {
+  margin-right: 5px;
 }
