@@ -1,3 +1,5 @@
+'use strict'
+
 class Product {
 	constructor(name, category, value, quantity, description) {
 		this.name = name
@@ -56,7 +58,7 @@ if(getStorageProducts() === null){
 }
 //////////////////////////////////////////////////////////////////////////////
 const setStorageCategory = (categoryArray) => {
-	localStorage.setItem('category', JSON.stringify(categoryArray) )
+	localStorage.setItem('category', JSON.stringify(categoryArray))
 }
 
 const getStorageCategory = () => {
@@ -74,13 +76,21 @@ const pushCategory = (category) => {
 }
 
 const deleteCategory = (index) => {
-	const klucz = localStorage.getItem('category')
-	if(klucz === null) {
+	const products = getStorageProducts()
+	const categories = getStorageCategory()
+	const canDelete = product => { 
+		return product.category !== categories[index].name
+	}
+	if(!products.every(canDelete)) {
+		throw new Error('Product exist inside Category')
+		
+	}
+	if(categories === null) {
 		return
 	}
-	let categoryArray = JSON.parse(klucz)
-	categoryArray.splice(index, 1)
-	setStorageCategory(categoryArray)
+	categories.splice(index, 1)
+	setStorageCategory(categories)
+	
 }
 
 if(getStorageCategory() === null){

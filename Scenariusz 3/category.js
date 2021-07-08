@@ -1,6 +1,13 @@
+'use strict'
+
 const handleDelete = (i) => {
-	deleteCategory(i)
-	updateCategory()
+	try {
+		deleteCategory(i)
+		updateCategory()
+	}
+	catch(err) {
+		window.alert('Nie można usunąć Kategori dopóki istnieje produkt ją zawierający')
+	}
 }
 
 const handleEdit = (i) => {
@@ -30,8 +37,8 @@ const updateCategory = () => {
 	for(const [index, category] of categoryArray.entries()){
 		td += `<tr><td>${category.name}</td>
 		<td>${category.description}</td>
-		<td><button onclick="handleDelete(${index})">Delete</button>
-		<button onclick="handleEdit(${index})">Edit</button><td>
+		<td><button class="delete-btn" onclick="handleDelete(${index})">Delete</button>
+		<button class="edit-btn" onclick="handleEdit(${index})">Edit</button><td>
 		</tr>`
 	}
 	tableBodyHandle.innerHTML = td
@@ -47,7 +54,7 @@ const hideEdit = () => {
 	modalHandle.classList.remove('modal-visible')
 }
 ////////////////////////////////////////////////////////////////////////////////
-const addbtn = document.querySelector('.addbtn')
+const addbtn = document.getElementById('btna')
 
 addbtn.addEventListener('click', () => {
 	const name = document.getElementById('name').value

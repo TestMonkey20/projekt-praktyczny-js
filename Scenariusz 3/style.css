@@ -8,7 +8,7 @@ body {
   background-color: #12121f;
 }
 
-.containerHead {
+.container-head {
   background-color: #32121f;
   width: 100%;
   height: 15vh;
@@ -19,7 +19,7 @@ body {
   flex-wrap: wrap;
 }
 
-.containerHead .data {
+.container-head .data {
   width: 30vh;
   height: 4vh;
   background: none;
@@ -27,7 +27,7 @@ body {
   color: #eee;
 }
 
-.containerHead .data::placeholder {
+.container-head .data::placeholder {
   color: #eee;
 }
 
@@ -42,14 +42,14 @@ body {
 }
 
 .nav {
+  text-align: center;
+  padding: 20px;
   background-color: #32121f;
 }
 
-.nav .addbtn {
+.nav .add-btn {
   margin-left: 20px;
   font-size: 40px;
-  background: none;
-  color: #eee;
 }
 
 table {
@@ -93,4 +93,63 @@ td > button:nth-child(1) {
 
 .modal-visible {
   display: grid;
+}
+
+button {
+  color: #eee;
+  border-radius: 5px;
+  padding: 5px 10px;
+  background-color: inherit;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+button:hover {
+  color: #12121f;
+  background: #aa9797;
+}
+
+.delete-btn {
+  color: #bb0a0a;
+}
+
+.delete-btn:hover {
+  color: #12121f;
+  background: #860202;
+  box-shadow: 0 0 10px #f32156, 0 0 40px #b40f25, 0 0 40px #f1000c;
+}
+
+.edit-btn {
+  color: #008cff;
+}
+
+.edit-btn:hover {
+  color: #12121f;
+  background: #00b7ff;
+  box-shadow: 0 0 10px #00c3ff, 0 0 40px #00b7ff, 0 0 40px #00bceb;
+}
+
+.add-btn {
+  color: #008cff;
+}
+.add-btn:hover {
+  color: #32121f;
+  background: #af1150;
+  box-shadow: 0 0 10px #af1150, 0 0 40px #af1150, 0 0 80px #af1150;
+}
+
+.select-category {
+  padding: 5px 10px;
+  border: none;
+  color: #eee;
+  background: none;
+}
+
+.select-category option {
+  background-color: #32121f;
 }

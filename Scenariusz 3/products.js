@@ -1,3 +1,5 @@
+'use strict'
+
 const handleDelete = (i) => {
 	deleteProduct(i)
 	updateProducts()
@@ -39,14 +41,19 @@ const updateProducts = () => {
 		<td>${product.value}</td>
 		<td>${product.quantity}</td>
 		<td>${product.description}</td>
-		<td><button onclick="handleDelete(${index})">Delete</button>
-		<button onclick="handleEdit(${index})">Edit</button><td>
+		<td><button class="delete-btn" onclick="handleDelete(${index})">Delete</button>
+		<button class="edit-btn"onclick="handleEdit(${index})">Edit</button><td>
 		</tr>`
 	}
 	tableBodyHandler.innerHTML = td
 }
 
-
+const updateCategorySelect = () => {
+	const selectBodyHandle = document.getElementById("select-category")
+	selectBodyHandle.innerHTML = getStorageCategory()
+		.map(category => `<option value="${category.name}">${category.name}</option>`)
+		.join('')
+}
 
 const showEdit = () => {
 	const modalHandle = document.getElementById('modal')
@@ -58,11 +65,11 @@ const hideEdit = () => {
 	modalHandle.classList.remove('modal-visible')
 }
 ////////////////////////////////////////////////////////////////////////////////
-const addbtn = document.querySelector('.addbtn')
+const addbtn = document.getElementById('btna')
 
 addbtn.addEventListener('click', () => {
 	const name = document.getElementById('name').value
-	const category = document.getElementById('category').value
+	const category = document.getElementById('select-category').value
 	const value = document.getElementById('value').value
 	const quantity = document.getElementById('quantity').value
 	const description = document.getElementById('description').value
@@ -72,3 +79,4 @@ addbtn.addEventListener('click', () => {
 })
 
 updateProducts()
+updateCategorySelect()
