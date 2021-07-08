@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>Kategoria</title>
+</head>
+
+<body>
+	<div class="nametag">
+		<h1>Kategoria</h1>
+	</div>
+	
+	<div class="containerHead">
+		<input class="data" type="text" id="name" placeholder="Nazwa">
+		<input class="data" type="text" id="description" placeholder="Opis">
+	</div>
+	
+	<div class="nav">
+		<button id="btna" class='addbtn'>Dodaj</button>
+	</div>
+	
+	<table>
+		<thead>
+			<tr>
+				<th>Nazwa</th>
+				<th>Opis</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody id="table-body">
+	
+		</tbody>
+	</table>
+	
+	<div id="modal" class="modal-wrapper">
+		<div class="modal">
+			<input class="data" type="text" id="modal-name">
+			<input class="data" type="text" id="modal-description">
+			<button id="save-changes">Zamień</button>
+			<button class="accept" onclick="hideEdit()">Anuluj</button>
+		</div>
+	</div>
+
+	<script src="script.js" defer></script>
+	<script src="category.js" defer></script>
+</body>
+
+</html>

@@ -1,18 +1,25 @@
 class Product {
 	constructor(name, category, value, quantity, description) {
-		this.name = name;
-		this.category = category;
-		this.value = value;
-		this.quantity = quantity;
-		this.description = description;
+		this.name = name
+		this.category = category
+		this.value = value
+		this.quantity = quantity
+		this.description = description
 	}
 }
 
-const setLocalStorageArray = (productArray) => {
+class Category {
+	constructor(name, description) {
+		this.name = name
+		this.description = description
+	}
+}
+
+const setStorageProducts = (productArray) => {
 	localStorage.setItem('products', JSON.stringify(productArray) )
 }
 
-const getLocalStorageArray = () => {
+const getStorageProducts = () => {
 	return JSON.parse(localStorage.getItem('products'))
 }
 
@@ -22,16 +29,13 @@ const getLocalStorageArray = () => {
  */
 const pushProduct = (product) => {
 	const klucz = localStorage.getItem('products')
-
 	if(klucz === null) {
 		localStorage.setItem('products', '[]')
 	}
-
 	let productArray = JSON.parse(klucz)
 	productArray.push(product)
-	setLocalStorageArray(productArray)
+	setStorageProducts(productArray)
 }
-
 
 /**
  * Usuwa produkt z local storage
@@ -39,98 +43,46 @@ const pushProduct = (product) => {
  */
 const deleteProduct = (index) => {
 	const klucz = localStorage.getItem('products')
-
 	if(klucz === null) {
 		return
 	}
-
 	let productArray = JSON.parse(klucz)
 	productArray.splice(index, 1)
-	setLocalStorageArray(productArray)
+	setStorageProducts(productArray)
 }
 
-
-
-const handleDelete = (i) => {
-	deleteProduct(i)
-	updateProducts()
+if(getStorageProducts() === null){
+	setStorageProducts([])
+}
+//////////////////////////////////////////////////////////////////////////////
+const setStorageCategory = (categoryArray) => {
+	localStorage.setItem('category', JSON.stringify(categoryArray) )
 }
 
-const handleEdit = (i) => {
-	const saveButtonHandle = document.getElementById('save-changes')
-	const item = getLocalStorageArray()[i]
-	const  {name, category, value, quantity, description} = item
-	document.getElementById('modal-name').value = name
-	document.getElementById('modal-category').value = category
-	document.getElementById('modal-value').value = value
-	document.getElementById('modal-quantity').value = quantity
-	document.getElementById('modal-description').value = description
-	saveButtonHandle.onclick = () => handleSaveEdit(i)
-	console.log(saveButtonHandle.onclick)
-
-	showEdit()
+const getStorageCategory = () => {
+	return JSON.parse(localStorage.getItem('category'))
 }
 
-const handleSaveEdit = (i) => {
-	const products = getLocalStorageArray()
-	const item = products[i]
-	item.name = document.getElementById('modal-name').value
-	item.category = document.getElementById('modal-category').value
-	item.value = document.getElementById('modal-value').value
-	item.quantity = document.getElementById('modal-quantity').value
-	item.description = document.getElementById('modal-description').value
-	
-	setLocalStorageArray(products)
-	updateProducts()
-	hideEdit()
-}
-
-const updateProducts = () => {
-	const tableBodyHandler = document.getElementById('table-body')
-
-	const productArray = getLocalStorageArray()
-	let td = ""
-	for(const [index, product] of productArray.entries()){
-		td += `<tr><td>${product.name}</td>
-		<td>${product.category}</td>
-		<td>${product.value}</td>
-		<td>${product.quantity}</td>
-		<td>${product.description}</td>
-		<td><button onclick="handleDelete(${index})">Delete</button>
-		<button onclick="handleEdit(${index})">Edit</button><td>
-		</tr>`
+const pushCategory = (category) => {
+	const klucz = localStorage.getItem('category')
+	if(klucz === null) {
+		localStorage.setItem('category', '[]')
 	}
-	tableBodyHandler.innerHTML = td
+	let categoryArray = JSON.parse(klucz)
+	categoryArray.push(category)
+	setStorageCategory(categoryArray)
 }
 
-
-
-const showEdit = () => {
-	const modalHandle = document.getElementById('modal')
-	modalHandle.classList.add('modal-visible')
+const deleteCategory = (index) => {
+	const klucz = localStorage.getItem('category')
+	if(klucz === null) {
+		return
+	}
+	let categoryArray = JSON.parse(klucz)
+	categoryArray.splice(index, 1)
+	setStorageCategory(categoryArray)
 }
 
-const hideEdit = () => {
-	const modalHandle = document.getElementById('modal')
-	modalHandle.classList.remove('modal-visible')
+if(getStorageCategory() === null){
+	setStorageCategory([])
 }
-
-
-////////////////////////////////////////////////////////////////////////////////
-const addbtn = document.querySelector('.addbtn')
-
-addbtn.addEventListener('click', () => {
-	const name = document.getElementById('name').value
-	const category = document.getElementById('category').value
-	const value = document.getElementById('value').value
-	const quantity = document.getElementById('quantity').value
-	const description = document.getElementById('description').value
-	const product = new Product(name, category, value, quantity, description)
-
-	pushProduct(product)
-	updateProducts()
-})
-
-
-
-updateProducts()
